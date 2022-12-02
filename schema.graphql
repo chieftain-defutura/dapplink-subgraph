@@ -1,0 +1,58 @@
+type AddItem @entity {
+  id: ID!
+  shopId: BigInt! # uint256
+  preview: String! # string
+  fullproduct: String! # string
+  price: BigInt! # uint256
+  tokenaddress: Bytes! # address
+  productDetails: String! # string
+}
+
+type AddReview @entity {
+  id: ID!
+  tokenAddress: Bytes! # address
+  review: String! # string
+  itemid: BigInt! # uint256
+}
+
+type Approval @entity {
+  id: ID!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type ApprovalForAll @entity {
+  id: ID!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type MintNFT @entity {
+  id: ID!
+  token: BigInt! # uint256
+  value: Boolean! # bool
+}
+
+type RemoveItem @entity {
+  id: ID!
+  index: BigInt! # uint256
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type UpdateItem @entity {
+  id: ID!
+  itemid: BigInt! # uint256
+  preview: String! # string
+  fullproduct: String! # string
+  price: BigInt! # uint256
+  tokenAddress: Bytes! # address
+  productDetails: String! # string
+}
