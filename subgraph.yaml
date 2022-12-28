@@ -131,8 +131,8 @@ dataSources:
     network: goerli
     source:
       abi: PhysicalShop
-      address: '0xD6634e7Bfa37DFd2f620C9442CA03D5c20E956aC'
-      startBlock: 8216537
+      address: '0x210262ee362AFA0ae20B36Be64651eeee975eF72'
+      startBlock: 8216668
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -171,8 +171,8 @@ dataSources:
     network: goerli
     source:
       abi: Shipment
-      address: '0xcA8b0Db5488A1265a007340CE7993C7D40eE8847'
-      startBlock: 8216547
+      address: '0xe1b6aD7255b4F876643D8b5BEd7129208383A9dE'
+      startBlock: 8216675
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
