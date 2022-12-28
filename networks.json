@@ -1,7 +1,40 @@
 {
   "goerli": {
+    "Domain": {
+      "address": "0xc8ac8475bbcb099cd6ac1fa89261414d2079bd8f",
+      "startBlock": 8167314
+    },
     "DigitalShop": {
-      "address": "0xB566026263216f462337526A0640f244fE0A9Dee"
+      "address": "0x528CDE20ddbAcA8a5a12F15e63D6788e87d2c557",
+      "startBlock": 8185990
+    },
+    "Residue": {
+      "address": "0x5bdF6CE70653CdC9aA9a92B20adfcD225B3fE9a1",
+      "startBlock": 8178962
+    },
+    "Marketplace": {
+      "address": "0x05c03Ea909dF4D9AEee6A60D105De3D7E3184C65",
+      "startBlock": 8179022
+    },
+    "PhysicalShop": {
+      "address": "0x571B8E18209A60E38BcE47eF6D4AddB79FA79F18",
+      "startBlock": 8214785
+    },
+    "Shipment": {
+      "address": "0x5444beceb8a444ab6EaEe5eD66b89C5b1e1cf6e1",
+      "startBlock": 8214795
+    },
+    "Website": {
+      "address": "0xE44A1C68E3bb423C000f9B738Ad1E4dC0560a30a",
+      "startBlock": 8167355
+    },
+    "FullOnBlockchainArt": {
+      "address": "0xf6Bd7412DE84F9A7a413D967Da21f84F30402a43",
+      "startBlock": 8167359
+    },
+    "Charities": {
+      "address": "0x8c5d74808F668DFd8c5d3587a8ad17F08a73E51F",
+      "startBlock": 8167362
     }
   }
 }

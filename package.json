@@ -1,13 +1,13 @@
 {
-  "name": "Dapplink",
+  "name": "dapplink-subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ Dapplink",
-    "create-local": "graph create --node http://localhost:8020/ Dapplink",
+    "deploy": "graph deploy --product hosted-service --network goerli arunram2000/dapplink",
+    "create-local": "graph create --node http://localhost:8545/ Dapplink",
     "remove-local": "graph remove --node http://localhost:8020/ Dapplink",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 Dapplink"
+    "deploy-local": "graph deploy --node http://localhost:8545/ --ipfs https://ipfs.io Dapplink"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.31.0",

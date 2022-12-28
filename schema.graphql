@@ -1,58 +1,246 @@
-type AddItem @entity {
-  id: ID!
-  shopId: BigInt! # uint256
-  preview: String! # string
-  fullproduct: String! # string
-  price: BigInt! # uint256
-  tokenaddress: Bytes! # address
-  productDetails: String! # string
+type _Schema_
+  @fulltext(
+    name: "digitalShopSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "DigitalShopToken", fields: [{ name: "domainName" }] }]
+  )
+  @fulltext(
+    name: "physicalShopSearch"
+    language: en
+    algorithm: rank
+    include: [{ entity: "PhysicalShopToken", fields: [{ name: "domainName" }] }]
+  )
+  @fulltext(
+    name: "digitalItemSearch"
+    language: en
+    algorithm: rank
+    include: [
+      {
+        entity: "DigitalItem"
+        fields: [{ name: "category" }, { name: "subcategory" }]
+      }
+    ]
+  )
+  @fulltext(
+    name: "physicalItemSearch"
+    language: en
+    algorithm: rank
+    include: [
+      {
+        entity: "PhysicalItem"
+        fields: [{ name: "category" }, { name: "subcategory" }]
+      }
+    ]
+  )
+
+enum SaleStatus {
+  ACTIVE
+  PURCHASED
+  REMOVED
+  DISPATCHED
+  CANCELLED
+  COMPLETED
 }
 
-type AddReview @entity {
-  id: ID!
-  tokenAddress: Bytes! # address
-  review: String! # string
-  itemid: BigInt! # uint256
+enum ShipmentStatus {
+  PREPARING
+  PREPARED
+  DISPATCHED
+  CANCELLED
+  RECEIVED
 }
 
-type Approval @entity {
-  id: ID!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
+enum MarketStatus {
+  ACTIVE
+  CANCELLED
+  FINISHED
 }
 
-type ApprovalForAll @entity {
-  id: ID!
-  owner: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
+enum ReviewStatus {
+  GOOD
+  BAD
 }
 
-type MintNFT @entity {
+type Token @entity {
   id: ID!
-  token: BigInt! # uint256
-  value: Boolean! # bool
+  name: String!
+  symbol: String!
+  decimals: String!
 }
 
-type RemoveItem @entity {
+type Benificiary @entity {
   id: ID!
-  index: BigInt! # uint256
+  contractAddress: Bytes!
+  tokenId: BigInt!
+  shareOwner: Bytes!
+  sharePercent: BigInt!
+  isActive: Boolean
 }
 
-type Transfer @entity {
+type DomainToken @entity {
   id: ID!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
+  tokenId: BigInt!
+  domainName: String!
+  tld: String!
+  tokenUri: String
+  owner: User!
 }
 
-type UpdateItem @entity {
+type DigitalShopToken @entity {
   id: ID!
-  itemid: BigInt! # uint256
-  preview: String! # string
-  fullproduct: String! # string
-  price: BigInt! # uint256
-  tokenAddress: Bytes! # address
-  productDetails: String! # string
+  tokenId: BigInt!
+  domainId: BigInt!
+  domainName: String
+  tokenUri: String
+  owner: User!
+  upVote: BigInt!
+  downVote: BigInt!
+  items: [DigitalItem!] @derivedFrom(field: "shopDetails")
+  lastSale: DigitalItem
+}
+
+type PhysicalShopToken @entity {
+  id: ID!
+  tokenId: BigInt!
+  domainId: BigInt!
+  domainName: String
+  tokenUri: String
+  owner: User!
+  upVote: BigInt!
+  downVote: BigInt!
+  items: [PhysicalItem!] @derivedFrom(field: "shopDetails")
+  lastSale: Shipment
+}
+
+type WebsiteToken @entity {
+  id: ID!
+  tokenId: BigInt!
+  domainId: BigInt!
+  domainName: String
+  tokenUri: String
+  owner: User!
+}
+
+type CharityToken @entity {
+  id: ID!
+  tokenId: BigInt!
+  domainId: BigInt!
+  domainName: String
+  tokenUri: String
+  owner: User!
+}
+
+type FullOnBlockchainArtToken @entity {
+  id: ID!
+  tokenId: BigInt!
+  domainId: BigInt!
+  domainName: String
+  tokenUri: String
+  owner: User!
+}
+
+type UserCollection @entity {
+  id: ID!
+  user: Bytes!
+  category: String!
+  totalItems: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  domainTokens: [DomainToken!] @derivedFrom(field: "owner")
+  digitalShopTokens: [DigitalShopToken!] @derivedFrom(field: "owner")
+  physicalShopTokens: [PhysicalShopToken!] @derivedFrom(field: "owner")
+  digitalItems: [DigitalItem!] @derivedFrom(field: "owner")
+  physicalItems: [PhysicalItem!] @derivedFrom(field: "owner")
+  websiteTokens: [WebsiteToken!] @derivedFrom(field: "owner")
+  charityTokens: [CharityToken!] @derivedFrom(field: "owner")
+  fullOnBlockchainArtTokens: [FullOnBlockchainArtToken!]
+    @derivedFrom(field: "owner")
+  haveToSend: BigInt!
+  awaitingDelivery: BigInt!
+}
+
+type DigitalItem @entity {
+  id: ID!
+  shopDetails: DigitalShopToken!
+  category: String!
+  subcategory: String!
+  metadata: String!
+  fullproduct: String!
+  price: BigInt!
+  erc20Token: Token!
+  status: SaleStatus!
+  itemName: String!
+  owner: User
+  listedAt: BigInt!
+}
+
+type PhysicalItem @entity {
+  id: ID!
+  shopDetails: PhysicalShopToken!
+  category: String!
+  subcategory: String!
+  metadata: String!
+  quantity: BigInt!
+  price: BigInt!
+  erc20Token: Token!
+  status: SaleStatus!
+  itemName: String!
+  owner: User
+  listedAt: BigInt!
+}
+
+type FixedSale @entity {
+  id: ID!
+  auctionId: BigInt!
+  tokenId: BigInt!
+  price: BigInt!
+  owner: Bytes!
+  erc20Token: Token!
+  erc721TokenAddress: Bytes!
+  status: MarketStatus!
+  buyer: Bytes
+}
+
+type Bidders @entity {
+  id: ID!
+  bidder: Bytes
+  amount: BigInt
+}
+
+type Auction @entity {
+  id: ID!
+  auctionId: BigInt!
+  tokenId: BigInt!
+  price: BigInt!
+  owner: Bytes!
+  erc20Token: Token!
+  erc721TokenAddress: Bytes!
+  startTime: BigInt!
+  endTime: BigInt!
+  status: MarketStatus!
+  highestBidder: Bytes
+  highestBid: BigInt
+  previousBids: [Bidders!]!
+}
+
+type Shipment @entity {
+  id: ID!
+  itemId: PhysicalItem!
+  deliveryHash: String!
+  quantity: BigInt!
+  status: ShipmentStatus!
+  buyer: Bytes!
+  owner: String
+}
+
+type Review @entity {
+  id: ID!
+  shipment: Shipment!
+  itemId: PhysicalItem!
+  user: Bytes!
+  review: String!
+  status: ReviewStatus!
 }

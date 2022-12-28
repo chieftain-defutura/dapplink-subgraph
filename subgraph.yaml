@@ -1,44 +1,276 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
+features:
+  - fullTextSearch
 dataSources:
+  - kind: ethereum
+    name: Domain
+    network: goerli
+    source:
+      abi: Domain
+      address: '0xc8ac8475bbcb099cd6ac1fa89261414d2079bd8f'
+      startBlock: 8167314
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - DomainToken
+        - User
+      abis:
+        - name: Domain
+          file: ./abis/Domain.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MintNft(indexed address,uint256,string,string)
+          handler: handleMintNft
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+      file: ./src/mappings/domain.ts
   - kind: ethereum
     name: DigitalShop
     network: goerli
     source:
-      address: "0xB566026263216f462337526A0640f244fE0A9Dee"
       abi: DigitalShop
+      address: '0x528CDE20ddbAcA8a5a12F15e63D6788e87d2c557'
+      startBlock: 8185990
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - AddItem
-        - AddReview
-        - Approval
-        - ApprovalForAll
-        - MintNFT
-        - RemoveItem
-        - Transfer
-        - UpdateItem
+        - DigitalItem
+        - DigitalShopToken
+        - User
+        - Token
+        - UserCollection
       abis:
         - name: DigitalShop
           file: ./abis/DigitalShop.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Domain
+          file: ./abis/Domain.json
       eventHandlers:
-        - event: AddItem(uint256,string,string,uint256,address,string)
-          handler: handleAddItem
-        - event: AddReview(address,string,uint256)
-          handler: handleAddReview
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
-        - event: MintNFT(uint256,bool)
-          handler: handleMintNFT
-        - event: RemoveItem(uint256)
-          handler: handleRemoveItem
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: UpdateItem(uint256,string,string,uint256,address,string)
+        - event: MintNft(uint256,uint256,address)
+          handler: handleMintNft
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+        - event: AddItem(uint256,uint256,string,string,string,string,uint256,address,string,address)
+          handler: handleAddItem
+        - event: UpdateItem(uint256,string,string,string,string,uint256,address)
           handler: handleUpdateItem
-      file: ./src/digital-shop.ts
+        - event: RemoveItem(uint256)
+          handler: handleRemoveItem
+        - event: BuyItem(uint256,address)
+          handler: handleBuyItem
+      file: ./src/mappings/digitalshop.ts
+  - kind: ethereum
+    name: Residue
+    network: goerli
+    source:
+      abi: Residue
+      address: '0x5bdF6CE70653CdC9aA9a92B20adfcD225B3fE9a1'
+      startBlock: 8178962
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Benificiary
+      abis:
+        - name: Residue
+          file: ./abis/Residue.json
+      eventHandlers:
+        - event: AddBenificiary(address,uint256,address,uint256)
+          handler: handleAddBenificiary
+        - event: RemoveBenificiary(address,uint256,address)
+          handler: handleRemoveBenificiary
+      file: ./src/mappings/residue.ts
+  - kind: ethereum
+    name: Marketplace
+    network: goerli
+    source:
+      abi: Marketplace
+      address: '0x05c03Ea909dF4D9AEee6A60D105De3D7E3184C65'
+      startBlock: 8179022
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Auction
+        - FixedSale
+        - Bidders
+        - Token
+      abis:
+        - name: Marketplace
+          file: ./abis/Marketplace.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: PutOnFixedSale(uint256,uint256,uint256,address,address,address)
+          handler: handlePutOnFixedSale
+        - event: PutOnAuction(uint256,uint256,uint256,address,address,uint256,address)
+          handler: handlePutOnAuction
+        - event: FinishFixedSale(uint256,address)
+          handler: handleFinishFixedSale
+        - event: FinishAuction(uint256)
+          handler: handleFinishAuction
+        - event: RemoveSale(uint256)
+          handler: handleRemoveSale
+        - event: PlaceBid(uint256,uint256,address)
+          handler: handlePlaceBid
+      file: ./src/mappings/marketplace.ts
+  - kind: ethereum
+    name: PhysicalShop
+    network: goerli
+    source:
+      abi: PhysicalShop
+      address: '0x571B8E18209A60E38BcE47eF6D4AddB79FA79F18'
+      startBlock: 8214785
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - PhysicalItem
+        - PhysicalShopToken
+        - User
+        - Token
+        - Review
+      abis:
+        - name: PhysicalShop
+          file: ./abis/PhysicalShop.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Domain
+          file: ./abis/Domain.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MintNft(uint256,uint256,address)
+          handler: handleMintNft
+        - event: AddItem(uint256,string,uint256,uint256,uint256,address,string,string,string,address)
+          handler: handleAddItem
+        - event: UpdateItem(uint256,uint256,uint256,address)
+          handler: handleUpdateItem
+        - event: RemoveItem(uint256)
+          handler: handleRemoveItem
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+        - event: AddReview(uint256,uint256,address,string,string)
+          handler: handleAddReview
+      file: ./src/mappings/physicalshop.ts
+  - kind: ethereum
+    name: Shipment
+    network: goerli
+    source:
+      abi: Shipment
+      address: '0x5444beceb8a444ab6EaEe5eD66b89C5b1e1cf6e1'
+      startBlock: 8214795
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - PhysicalItem
+        - Shipment
+        - PhysicalShopToken
+        - User
+      abis:
+        - name: Shipment
+          file: ./abis/Shipment.json
+        - name: PhysicalShop
+          file: ./abis/PhysicalShop.json
+      eventHandlers:
+        - event: OrderStatus(uint256,string)
+          handler: handleOrderStatus
+        - event: CreateOrder(uint256,uint256,address,uint256,string)
+          handler: handleCreateOrder
+      file: ./src/mappings/shipment.ts
+  - kind: ethereum
+    name: Website
+    network: goerli
+    source:
+      abi: Website
+      address: '0xE44A1C68E3bb423C000f9B738Ad1E4dC0560a30a'
+      startBlock: 8167355
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - WebsiteToken
+        - User
+      abis:
+        - name: Website
+          file: ./abis/Website.json
+        - name: Domain
+          file: ./abis/Domain.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MintNft(uint256,uint256,address)
+          handler: handleMintNft
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+      file: ./src/mappings/website.ts
+  - kind: ethereum
+    name: FullOnBlockchainArt
+    network: goerli
+    source:
+      abi: FullOnBlockchainArt
+      address: '0xf6Bd7412DE84F9A7a413D967Da21f84F30402a43'
+      startBlock: 8167359
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - FullOnBlockchainArtToken
+        - User
+      abis:
+        - name: FullOnBlockchainArt
+          file: ./abis/FullOnBlockchainArt.json
+        - name: Domain
+          file: ./abis/Domain.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MintNft(uint256,uint256,address)
+          handler: handleMintNft
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+      file: ./src/mappings/fullOnBlockchainArt.ts
+  - kind: ethereum
+    name: Charities
+    network: goerli
+    source:
+      abi: Charities
+      address: '0x8c5d74808F668DFd8c5d3587a8ad17F08a73E51F'
+      startBlock: 8167362
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CharitiesToken
+        - User
+      abis:
+        - name: Charities
+          file: ./abis/Charities.json
+        - name: Domain
+          file: ./abis/Domain.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MintNft(uint256,uint256,address)
+          handler: handleMintNft
+        - event: UpdateTokenUri(uint256,string)
+          handler: handleUpdateTokenUri
+      file: ./src/mappings/charities.ts

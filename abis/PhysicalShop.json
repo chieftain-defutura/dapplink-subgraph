@@ -8,12 +8,7 @@
       },
       {
         "internalType": "contract IERC20",
-        "name": "_SHIBToken",
-        "type": "address"
-      },
-      {
-        "internalType": "contract IResidual",
-        "name": "_residual",
+        "name": "_LEASHToken",
         "type": "address"
       }
     ],
@@ -31,9 +26,33 @@
       },
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "metadata",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "itemId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenaddress",
+        "type": "address"
       },
       {
         "indexed": false,
@@ -46,30 +65,6 @@
         "internalType": "string",
         "name": "subcategory",
         "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "fullproduct",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "metadata",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "price",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "tokenAddress",
-        "type": "address"
       },
       {
         "indexed": false,
@@ -98,14 +93,26 @@
       },
       {
         "indexed": false,
+        "internalType": "uint256",
+        "name": "shipmentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
         "internalType": "address",
-        "name": "userAddress",
+        "name": "user",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
         "name": "review",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "status",
         "type": "string"
       }
     ],
@@ -160,25 +167,6 @@
       }
     ],
     "name": "ApprovalForAll",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "itemId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "buyer",
-        "type": "address"
-      }
-    ],
-    "name": "BuyItem",
     "type": "event"
   },
   {
@@ -250,32 +238,14 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "itemid",
+        "name": "itemId",
         "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "category",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "subcategory",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "fullproduct",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "metadata",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -286,7 +256,7 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "tokenAddress",
+        "name": "tokenaddress",
         "type": "address"
       }
     ],
@@ -334,23 +304,13 @@
       },
       {
         "internalType": "string",
-        "name": "_category",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_subcategory",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_fullproduct",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
         "name": "_metadata",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -359,8 +319,18 @@
       },
       {
         "internalType": "address",
-        "name": "_tokenAddress",
+        "name": "_tokenaddress",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_subcategory",
+        "type": "string"
       },
       {
         "internalType": "string",
@@ -381,18 +351,34 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_itemId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_shipmentId",
+        "type": "uint256"
+      },
+      {
         "internalType": "string",
         "name": "_review",
         "type": "string"
       },
       {
-        "internalType": "uint256",
-        "name": "_itemId",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "status",
+        "type": "string"
       }
     ],
     "name": "addReview",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -412,6 +398,35 @@
     "name": "addSubCategory",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "addedReview",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -462,19 +477,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_itemId",
-        "type": "uint256"
-      }
-    ],
-    "name": "buyItem",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -568,6 +570,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getCharityPercent",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -578,81 +593,58 @@
     "name": "getItemDetails",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "itemId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "shopId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "itemName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "category",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "subcategory",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "fullproduct",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "metadata",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "price",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "tokenAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "address[]",
-            "name": "reviewAddress",
-            "type": "address[]"
-          },
-          {
-            "internalType": "string[]",
-            "name": "review",
-            "type": "string[]"
-          },
-          {
-            "internalType": "address",
-            "name": "buyer",
-            "type": "address"
-          },
-          {
-            "internalType": "enum DigitalGoods.saleStatus",
-            "name": "status",
-            "type": "uint8"
-          },
-          {
-            "internalType": "address",
-            "name": "charityAddress",
-            "type": "address"
-          }
-        ],
-        "internalType": "struct DigitalGoods.Item",
+        "internalType": "uint256",
         "name": "",
-        "type": "tuple"
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getItemIdOfShop",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "view",
@@ -843,19 +835,6 @@
     "name": "removeSubCategory",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "residual",
-    "outputs": [
-      {
-        "internalType": "contract IResidual",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1153,33 +1132,13 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_shopId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
         "name": "_itemId",
         "type": "uint256"
       },
       {
-        "internalType": "string",
-        "name": "_category",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_subcategory",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_fullproduct",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_metadata",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -1188,7 +1147,7 @@
       },
       {
         "internalType": "address",
-        "name": "_tokenAddress",
+        "name": "_tokenaddress",
         "type": "address"
       }
     ],
