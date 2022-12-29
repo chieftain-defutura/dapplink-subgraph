@@ -96,8 +96,8 @@ dataSources:
     network: goerli
     source:
       abi: Marketplace
-      address: '0x05c03Ea909dF4D9AEee6A60D105De3D7E3184C65'
-      startBlock: 8179022
+      address: '0x70a9ea700F041EE39465B72A30173Cb54017F33B'
+      startBlock: 8219419
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
