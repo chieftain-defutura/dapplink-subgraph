@@ -2,6 +2,7 @@ import {
   MintNft as MintNftEvent,
   Transfer as TransferEvent,
   UpdateTokenUri as UpdateTokenUriEvent,
+  SetLink as SetLinkEvent,
   FullOnBlockchainArt
 } from '../../generated/FullOnBlockchainArt/FullOnBlockchainArt';
 import { Domain } from '../../generated/FullOnBlockchainArt/Domain';
@@ -56,5 +57,14 @@ export function handleUpdateTokenUri(event: UpdateTokenUriEvent): void {
   if (!token) return;
 
   token.tokenUri = event.params.tokenUri;
+  token.save();
+}
+
+export function handleSetLink(event: SetLinkEvent): void {
+  let token = FullOnBlockchainArtToken.load(event.params.tokenId.toString());
+
+  if (!token) return;
+
+  token.link = event.params.link;
   token.save();
 }

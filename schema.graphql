@@ -120,18 +120,20 @@ type WebsiteToken @entity {
   domainName: String
   tokenUri: String
   owner: User!
+  link: String
 }
 
-type CharityToken @entity {
+type FullOnBlockchainArtToken @entity {
   id: ID!
   tokenId: BigInt!
   domainId: BigInt!
   domainName: String
   tokenUri: String
   owner: User!
+  link: String
 }
 
-type FullOnBlockchainArtToken @entity {
+type CharityToken @entity {
   id: ID!
   tokenId: BigInt!
   domainId: BigInt!
@@ -173,7 +175,7 @@ type DigitalItem @entity {
   erc20Token: Token!
   status: SaleStatus!
   itemName: String!
-  owner: User
+  owner: [User!]!
   listedAt: BigInt!
 }
 

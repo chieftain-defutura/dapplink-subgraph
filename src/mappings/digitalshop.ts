@@ -83,6 +83,7 @@ export function handleAddItem(event: AddItemEvent): void {
   item.itemName = event.params.itemName;
   item.status = 'ACTIVE';
   item.listedAt = event.block.timestamp;
+  item.owner = [];
 
   item.erc20Token = getTokenInfo(event.params.tokenAddress);
 
@@ -119,7 +120,7 @@ export function handleBuyItem(event: BuyItemEvent): void {
 
   if (!item) return;
 
-  item.owner = event.params.buyer.toHexString();
+  item.owner.push(event.params.buyer.toHexString());
   item.status = 'PURCHASED';
   item.save();
 

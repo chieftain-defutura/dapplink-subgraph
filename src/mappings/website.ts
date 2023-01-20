@@ -2,6 +2,7 @@ import {
   MintNft as MintNftEvent,
   Transfer as TransferEvent,
   UpdateTokenUri as UpdateTokenUriEvent,
+  SetLink as SetLinkEvent,
   Website
 } from '../../generated/Website/Website';
 import { Domain } from '../../generated/Website/Domain';
@@ -56,5 +57,14 @@ export function handleUpdateTokenUri(event: UpdateTokenUriEvent): void {
   if (!token) return;
 
   token.tokenUri = event.params.tokenUri;
+  token.save();
+}
+
+export function handleSetLink(event: SetLinkEvent): void {
+  let token = WebsiteToken.load(event.params.tokenId.toString());
+
+  if (!token) return;
+
+  token.link = event.params.link;
   token.save();
 }
