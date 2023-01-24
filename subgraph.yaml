@@ -34,8 +34,8 @@ dataSources:
     network: goerli
     source:
       abi: DigitalShop
-      address: '0x692091feABd9057a42Ca25e7dcBBC92Fbf5282F8'
-      startBlock: 8342856
+      address: '0x8b584c0d456835e89264720D44CD032C273f333c'
+      startBlock: 8366523
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
