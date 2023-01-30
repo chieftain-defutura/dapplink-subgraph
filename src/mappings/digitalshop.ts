@@ -120,8 +120,9 @@ export function handleBuyItem(event: BuyItemEvent): void {
 
   if (!item) return;
 
-  item.owner.push(event.params.buyer.toHexString());
-  item.status = 'PURCHASED';
+  let owner = item.owner;
+  owner.push(event.params.buyer.toHexString());
+  item.owner = owner;
   item.save();
 
   let shop = DigitalShopToken.load(item.shopDetails);
