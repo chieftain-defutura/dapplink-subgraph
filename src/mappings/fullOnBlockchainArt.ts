@@ -3,6 +3,7 @@ import {
   Transfer as TransferEvent,
   UpdateTokenUri as UpdateTokenUriEvent,
   SetLink as SetLinkEvent,
+  UpdateCategory as UpdateCategoryEvent,
   FullOnBlockchainArt
 } from '../../generated/FullOnBlockchainArt/FullOnBlockchainArt';
 import { Domain } from '../../generated/FullOnBlockchainArt/Domain';
@@ -66,5 +67,14 @@ export function handleSetLink(event: SetLinkEvent): void {
   if (!token) return;
 
   token.link = event.params.link;
+  token.save();
+}
+
+export function handleUpdateCategory(event: UpdateCategoryEvent): void {
+  let token = FullOnBlockchainArtToken.load(event.params.tokenId.toString());
+
+  if (!token) return;
+
+  token.category = event.params.category;
   token.save();
 }

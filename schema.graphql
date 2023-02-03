@@ -121,6 +121,7 @@ type WebsiteToken @entity {
   tokenUri: String
   owner: User!
   link: String
+  category: String
 }
 
 type FullOnBlockchainArtToken @entity {
@@ -131,6 +132,7 @@ type FullOnBlockchainArtToken @entity {
   tokenUri: String
   owner: User!
   link: String
+  category: String
 }
 
 type CharityToken @entity {

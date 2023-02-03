@@ -198,8 +198,8 @@ dataSources:
     network: goerli
     source:
       abi: Website
-      address: '0x8627D660F549A6C02Ae00346E8058a4Bc7d0E2C9'
-      startBlock: 8342713
+      address: '0x4CB9A8A6A6832055D4480e0600983d351a8e4007'
+      startBlock: 8421215
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -219,6 +219,8 @@ dataSources:
           handler: handleMintNft
         - event: UpdateTokenUri(uint256,string)
           handler: handleUpdateTokenUri
+        - event: UpdateCategory(uint256,string)
+          handler: handleUpdateCategory
         - event: SetLink(uint256,string)
           handler: handleSetLink
       file: ./src/mappings/website.ts
@@ -227,8 +229,8 @@ dataSources:
     network: goerli
     source:
       abi: FullOnBlockchainArt
-      address: '0x81C5dfcE93314a9aA4F01E05e2c536409113781c'
-      startBlock: 8342716
+      address: '0xB99EC69435341919FbBD59C3077F17eDA2AdDFC9'
+      startBlock: 8420998
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -248,6 +250,8 @@ dataSources:
           handler: handleMintNft
         - event: UpdateTokenUri(uint256,string)
           handler: handleUpdateTokenUri
+        - event: UpdateCategory(uint256,string)
+          handler: handleUpdateCategory
         - event: SetLink(uint256,string)
           handler: handleSetLink
       file: ./src/mappings/fullOnBlockchainArt.ts

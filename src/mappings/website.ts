@@ -3,6 +3,7 @@ import {
   Transfer as TransferEvent,
   UpdateTokenUri as UpdateTokenUriEvent,
   SetLink as SetLinkEvent,
+  UpdateCategory as UpdateCategoryEvent,
   Website
 } from '../../generated/Website/Website';
 import { Domain } from '../../generated/Website/Domain';
@@ -66,5 +67,14 @@ export function handleSetLink(event: SetLinkEvent): void {
   if (!token) return;
 
   token.link = event.params.link;
+  token.save();
+}
+
+export function handleUpdateCategory(event: UpdateCategoryEvent): void {
+  let token = WebsiteToken.load(event.params.tokenId.toString());
+
+  if (!token) return;
+
+  token.category = event.params.category;
   token.save();
 }
