@@ -229,8 +229,8 @@ dataSources:
     network: goerli
     source:
       abi: FullOnBlockchainArt
-      address: '0xB99EC69435341919FbBD59C3077F17eDA2AdDFC9'
-      startBlock: 8420998
+      address: '0xbDBd5155f50CeaF87B65aA5022f289B779a60C64'
+      startBlock: 8431961
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -238,6 +238,7 @@ dataSources:
       entities:
         - FullOnBlockchainArtToken
         - User
+        - Chunk
       abis:
         - name: FullOnBlockchainArt
           file: ./abis/FullOnBlockchainArt.json
@@ -252,8 +253,10 @@ dataSources:
           handler: handleUpdateTokenUri
         - event: UpdateCategory(uint256,string)
           handler: handleUpdateCategory
-        - event: SetLink(uint256,string)
+        - event: SetLink(uint256,string,uint256)
           handler: handleSetLink
+        - event: UploadChunk(uint256,uint256,string)
+          handler: handleUploadChunk
       file: ./src/mappings/fullOnBlockchainArt.ts
   - kind: ethereum
     name: Charities

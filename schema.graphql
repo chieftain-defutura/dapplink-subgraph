@@ -131,8 +131,9 @@ type FullOnBlockchainArtToken @entity {
   domainName: String
   tokenUri: String
   owner: User!
-  link: String
   category: String
+  mimeType: String
+  totalChunks: BigInt
 }
 
 type CharityToken @entity {
@@ -247,4 +248,10 @@ type Review @entity {
   user: Bytes!
   review: String!
   status: ReviewStatus!
+}
+
+type Chunk @entity {
+  id: ID!
+  tokenId: BigInt!
+  chunkData: String!
 }
