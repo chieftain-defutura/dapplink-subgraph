@@ -198,8 +198,8 @@ dataSources:
     network: goerli
     source:
       abi: Website
-      address: '0x4CB9A8A6A6832055D4480e0600983d351a8e4007'
-      startBlock: 8421215
+      address: '0xcBE1b1925a9836BFfD5dB0b3f2DfFf759Dc2BD24'
+      startBlock: 8449755
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -207,6 +207,7 @@ dataSources:
       entities:
         - WebsiteToken
         - User
+        - Chunk
       abis:
         - name: Website
           file: ./abis/Website.json
@@ -221,8 +222,10 @@ dataSources:
           handler: handleUpdateTokenUri
         - event: UpdateCategory(uint256,string)
           handler: handleUpdateCategory
-        - event: SetLink(uint256,string)
+        - event: SetLink(uint256,string,uint256)
           handler: handleSetLink
+        - event: UploadChunk(uint256,uint256,string)
+          handler: handleUploadChunk
       file: ./src/mappings/website.ts
   - kind: ethereum
     name: FullOnBlockchainArt

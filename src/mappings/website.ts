@@ -4,10 +4,11 @@ import {
   UpdateTokenUri as UpdateTokenUriEvent,
   SetLink as SetLinkEvent,
   UpdateCategory as UpdateCategoryEvent,
+  UploadChunk as UploadChunkEvent,
   Website
 } from '../../generated/Website/Website';
 import { Domain } from '../../generated/Website/Domain';
-import { WebsiteToken, User } from '../../generated/schema';
+import { WebsiteToken, User, Chunk } from '../../generated/schema';
 import { BigInt } from '@graphprotocol/graph-ts';
 
 export function handleMintNft(event: MintNftEvent): void {
@@ -66,8 +67,37 @@ export function handleSetLink(event: SetLinkEvent): void {
 
   if (!token) return;
 
-  token.link = event.params.link;
+  token.mimeType = event.params.mimeType;
+  token.totalChunks = event.params.totalChunks;
   token.save();
+}
+
+export function handleUploadChunk(event: UploadChunkEvent): void {
+  let token = WebsiteToken.load(event.params.tokenId.toString());
+  if (!token) return;
+
+  let chunkId =
+    event.params.tokenId.toString() +
+    '-' +
+    event.params.chunkIndex.toString() +
+    '-' +
+    event.address.toHexString();
+
+  let chunk = Chunk.load(chunkId);
+
+  if (!chunk) {
+    chunk = new Chunk(chunkId);
+
+    chunk.tokenId = event.params.tokenId;
+    chunk.chunkData = event.params.chunkData;
+    chunk.chunkIndex = event.params.chunkIndex;
+    chunk.erc721TokenAddress = event.address.toHexString();
+    chunk.save();
+    return;
+  }
+
+  chunk.chunkData = event.params.chunkData;
+  chunk.save();
 }
 
 export function handleUpdateCategory(event: UpdateCategoryEvent): void {

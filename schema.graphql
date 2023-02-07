@@ -120,8 +120,9 @@ type WebsiteToken @entity {
   domainName: String
   tokenUri: String
   owner: User!
-  link: String
   category: String
+  mimeType: String
+  totalChunks: BigInt
 }
 
 type FullOnBlockchainArtToken @entity {
@@ -252,6 +253,8 @@ type Review @entity {
 
 type Chunk @entity {
   id: ID!
+  chunkIndex: BigInt!
+  erc721TokenAddress: String!
   tokenId: BigInt!
   chunkData: String!
 }

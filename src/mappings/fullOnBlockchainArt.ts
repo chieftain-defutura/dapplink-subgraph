@@ -77,7 +77,11 @@ export function handleUploadChunk(event: UploadChunkEvent): void {
   if (!token) return;
 
   let chunkId =
-    event.params.tokenId.toString() + '-' + event.params.chunkIndex.toString();
+    event.params.tokenId.toString() +
+    '-' +
+    event.params.chunkIndex.toString() +
+    '-' +
+    event.address.toHexString();
 
   let chunk = Chunk.load(chunkId);
 
@@ -86,6 +90,8 @@ export function handleUploadChunk(event: UploadChunkEvent): void {
 
     chunk.tokenId = event.params.tokenId;
     chunk.chunkData = event.params.chunkData;
+    chunk.chunkIndex = event.params.chunkIndex;
+    chunk.erc721TokenAddress = event.address.toHexString();
     chunk.save();
     return;
   }
